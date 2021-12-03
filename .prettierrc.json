@@ -1,0 +1,8 @@
+{
+  "rettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    }
+  ]
+}

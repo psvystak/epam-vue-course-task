@@ -1,0 +1,103 @@
+html, body, div, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+caption,
+article, aside, canvas, details, figcaption, figure,
+footer, header, menu, nav, section, summary, a,
+time, mark, audio, video, div, span {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  border: 0;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+table, tbody, tfoot, thead, tr, th, td {
+  vertical-align: baseline;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  line-height: 1.9rem;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  color: black;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+td, th {
+  padding: 6px;
+}
+
+
+ul, ol {
+  padding: 0;
+}
+
+
+p, li {
+  margin-bottom: 0;
+}
+
+
+a {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  vertical-align: baseline;
+  background: transparent;
+
+}
+
+a:hover,
+a:active,
+a:visited {
+  cursor: pointer;
+  text-decoration: none;
+  outline: none;
+}
+
+button,
+button:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+input, textarea {
+  outline: none;
+}
+
+select {
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+input, select {
+  vertical-align: middle;
+}
+
+textarea {
+  resize: none;
+}

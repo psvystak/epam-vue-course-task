@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "import/no-unresolved": [
+      2,
+      {
+        "caseSensitive": false
+      }
+    ]
+  },
+  "extends": [
+    "plugin:import/errors",
+    "plugin:import/typescript",
+    "plugin:vue/base"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "parser": "@typescript-eslint/parser"
+  }
+}

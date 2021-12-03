@@ -6,23 +6,25 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: "my-button",
+import { defineComponent } from "vue";
 
-  methods: {
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    onClick: function () {
-      /**
-       * Click event
-       *
-       * @event click
-       */
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.$emit("click");
+const MyButton = defineComponent({
+  emits: {
+    addBook(payload: { bookName: string }) {
+      // perform runtime validation
+      return payload.bookName;
     },
   },
-};
+  methods: {
+    onClick() {
+      this.$emit("addBook", {
+        bookName: "click", // Type error!
+      });
+    },
+  },
+});
+
+export default MyButton;
 </script>
 
 <style scoped>
