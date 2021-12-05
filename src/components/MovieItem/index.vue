@@ -1,41 +1,71 @@
 <template>
-  <div class="movie-item">
+  <div class="movie-item-large" @click="openFullPage('test')">
     <div class="img-wrapper">
-      <img :alt="movie.name" :src="movie.img" />
+      <img :alt="movie.title" :src="movie.poster_path" />
     </div>
     <div class="description">
       <div>
-        <p class="name">{{ movie.name }}</p>
-        <p class="genre">{{ movie.genre }}</p>
+        <p class="name">{{ movie.title }}</p>
+        <p class="genre">{{ computeGenres }}</p>
       </div>
-      <p class="year">{{ movie.year }}</p>
+      <p class="year">{{ returnYear }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import img from "./assets/img2.jpg";
 
 const MovieItem = defineComponent({
   props: {
     movie: {
       type: Object,
-      img: String,
-      name: String,
-      genre: String,
-      year: Number,
+      id: Number,
+      poster_path: String,
+      title: String,
+      genres: Array,
+      release_date: String,
+      default: () => {
+        return {
+          id: 1,
+          poster_path: img,
+          title: "Pulp Fiction",
+          genres: [
+            "Action",
+            "Adventure",
+            "Science Fiction"
+          ],
+          release_date: "2020-12-12"
+        }
+      }
     },
   },
+  data() {
+    return {
+      img,
+    }
+  },
   emits: {
-    addBook(payload: { bookName: string }) {
-      return payload.bookName;
+    openFullPageEmit(payload: { bookName: string }) {
+      console.log(payload.bookName);
     },
   },
   methods: {
-    onClick() {
-      this.$emit("addBook", {
-        bookName: "click",
+    openFullPage(test: string) {
+      this.$emit("openFullPageEmit", {
+        bookName: test,
       });
+    },
+  },
+  mounted() {
+  },
+  computed: {
+    returnYear() {
+      return parseInt(this.movie.release_date);
+    },
+    computeGenres(): string {
+      return this.movie!.genres.join(' & ');
     },
   },
 });
@@ -44,8 +74,8 @@ export default MovieItem;
 </script>
 
 <style lang="scss" scoped>
-.movie-item {
-  @import "src/assets/scss/variables";
+@import "../../assets/scss/variables";
+.movie-item-large {
   height: 524px;
   width: 323px;
   font-weight: 500;

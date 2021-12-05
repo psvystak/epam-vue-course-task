@@ -11,8 +11,11 @@
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook"
   },
   "dependencies": {
+    "click-outside-vue3": "^4.0.1",
     "core-js": "^3.6.5",
     "image-webpack-loader": "^8.0.1",
+    "install": "^0.13.0",
+    "npm": "^8.2.0",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0"
   },
@@ -21,6 +24,7 @@
     "@storybook/addon-links": "^6.0.26",
     "@storybook/vue3": "^6.0.26",
     "@types/jest": "^24.0.19",
+    "@types/node": "^16.11.11",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -36,12 +40,14 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-vue": "^7.0.0",
+    "fork-ts-checker-webpack-plugin": "^6.5.0",
     "prettier": "^2.2.1",
     "sass": "^1.44.0",
     "sass-loader": "^10.1.1",
     "typescript": "~4.1.5",
     "vue-cli-plugin-storybook": "~2.1.0",
-    "vue-jest": "^5.0.0-0"
+    "vue-jest": "^5.0.0-0",
+    "vue-loader-v16": "^16.0.0-beta.5.4"
   },
   "eslintConfig": {
     "root": true,
