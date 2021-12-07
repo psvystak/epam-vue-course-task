@@ -26,13 +26,6 @@ const MovieDescription = defineComponent({
   props: {
     movie: {
       type: Object,
-      id: Number,
-      poster_path: String,
-      title: String,
-      genres: Array,
-      release_date: String,
-      vote_count: Number,
-      overview: String,
       default: () => {
         return {
           id: 1,

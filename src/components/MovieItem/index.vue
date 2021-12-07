@@ -21,11 +21,6 @@ const MovieItem = defineComponent({
   props: {
     movie: {
       type: Object,
-      id: Number,
-      poster_path: String,
-      title: String,
-      genres: Array,
-      release_date: String,
       default: () => {
         return {
           id: 1,
@@ -59,6 +54,7 @@ const MovieItem = defineComponent({
     },
   },
   mounted() {
+
   },
   computed: {
     returnYear() {
