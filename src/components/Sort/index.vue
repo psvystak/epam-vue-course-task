@@ -106,14 +106,19 @@ const Sort = defineComponent({
     showAll() {
       this.localMovies = this.movies;
       this.activeGenre = "all";
+      this.sortMovies();
     },
     filterByGenre(genre: string) {
       // @ts-ignore
       this.localMovies = this.movies.filter((item) => item.genres.includes(genre));
-      this.sortActive = false;
       this.activeGenre = genre;
+      this.sortMovies();
     },
-    sortByRelease(genre: string) {
+    sortByRelease() {
+      this.sortActive = !this.sortActive;
+      this.sortMovies();
+    },
+    sortMovies() {
       if (this.sortActive) {
         // @ts-ignore
         this.localMovies = this.localMovies.sort((a, b) => parseInt(a.release_date) - parseInt(b.release_date));
@@ -121,8 +126,6 @@ const Sort = defineComponent({
         // @ts-ignore
         this.localMovies = this.localMovies.sort((a, b) => parseInt(b.release_date) - parseInt(a.release_date));
       }
-      this.sortActive = !this.sortActive;
-      console.log(this.localMovies);
     }
   },
   computed: {
