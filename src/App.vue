@@ -57,7 +57,7 @@ export default class App extends Vue {
   }
 
   .movie-item-component {
-    margin: 43px 54px 0 0;
+    margin: 43px 57px 0 0;
   }
 }
 

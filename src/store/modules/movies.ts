@@ -35,7 +35,6 @@ const moviesModule: Module<any, any> = {
       state.loading = false;
     },
     getMovies(state, movies) {
-      console.log(movies);
       state.movies = movies;
     },
   }
