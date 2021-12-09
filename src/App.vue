@@ -1,27 +1,67 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
+  <div class="main-wrapper">
+    <search class="search-component"></search>
+    <div class="movies-wrapper">
+      <sort :movies-data="movies" class="sort-component" />
+      <movie-item v-for="movie in movies" :movie="movie" class="movie-item-component" />
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
-import HelloWorld from "./components/HelloWorld.vue";
+import { mapGetters, mapActions } from "vuex";
+import MovieItem from "./components/MovieItem/index.vue";
+import Search from "./components/Search/index.vue";
+import Sort from "./components/Sort/index.vue";
 
 @Options({
   components: {
-    HelloWorld,
+    MovieItem,
+    Search,
+    Sort
   },
+  computed: mapGetters(["movies"]),
+  methods: {
+    ...mapActions(["loadMovies"])
+  },
+  async mounted() {
+    await this.loadMovies();
+  }
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+
+}
 </script>
 
-<style>
+<style lang="scss">
+@import "assets/scss/variables";
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background: $gray-3;
+}
+
+#app > .main-wrapper {
+  width: 1200px;
+  margin: auto;
+}
+
+.movies-wrapper {
+  background: $black;
+  padding: 13px 0 50px 59px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .sort-component {
+    margin-bottom: 35px;
+  }
+
+  .movie-item-component {
+    margin: 43px 54px 0 0;
+  }
+}
+
+.search-component {
+  border-bottom: 10px solid $gray-3;
 }
 </style>

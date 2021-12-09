@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-item-large" @click="openFullPage('test')">
+  <div class="movie-item" @click="openFullPage('test')">
     <div class="img-wrapper">
       <img :alt="movie.title" :src="movie.poster_path" />
     </div>
@@ -71,8 +71,7 @@ export default MovieItem;
 
 <style lang="scss" scoped>
 @import "../../assets/scss/variables";
-.movie-item-large {
-  height: 524px;
+.movie-item {
   width: 323px;
   font-weight: 500;
   background: $black;

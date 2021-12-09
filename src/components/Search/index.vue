@@ -36,7 +36,7 @@ export default Search;
 .search-wrapper {
   background: url("assets/search-bg.jpg") no-repeat center/contain;
   width: 1200px;
-  height: 400px;
+  height: 410px;
   font-weight: 500;
   padding: 110px 120px 0 123px;
 

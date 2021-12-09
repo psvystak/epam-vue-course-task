@@ -2,7 +2,7 @@
   <div class="main-wrapper">
     <div class="genres-wrapper">
       <p :class="{'active': this.activeGenre === 'all'}" @click="showAll">All</p>
-      <p v-for="genre in genres" :key="genre" :class="{'active': activeGenre === genre}" @click="filterByGenre(genre)">
+      <p v-for="genre in genres" :key="genre" :class="{'active': activeGenre === genre}" @click="sortByGenre(genre)">
         {{ genre }}</p>
     </div>
     <div class="sort-wrapper">
@@ -16,10 +16,11 @@
 import { defineComponent } from "vue";
 import img1 from "./assets/img2.jpg";
 import img2 from "./assets/img3.jpg";
+import { mapMutations, mapActions } from "vuex";
 
 const Sort = defineComponent({
   props: {
-    movies: {
+    moviesData: {
       type: Array,
       default: () => {
         return [
@@ -95,7 +96,9 @@ const Sort = defineComponent({
   },
   data() {
     return {
-      localMovies: this.movies,
+      genres: [],
+      localData: this.moviesData,
+      filteredData: this.moviesData,
       activeGenre: "all",
       sortActive: false,
       img1,
@@ -103,38 +106,42 @@ const Sort = defineComponent({
     };
   },
   methods: {
+    ...mapActions(["loadMovies"]),
+    ...mapMutations(["getMovies"]),
     showAll() {
-      this.localMovies = this.movies;
+      this.filteredData = this.localData;
       this.activeGenre = "all";
       this.sortMovies();
+      this.getMovies(this.filteredData);
     },
-    filterByGenre(genre: string) {
-      // @ts-ignore
-      this.localMovies = this.movies.filter((item) => item.genres.includes(genre));
+    sortByGenre(genre: string) {
       this.activeGenre = genre;
       this.sortMovies();
+      // @ts-ignore
+      this.filteredData = this.localData.filter((item) => item.genres.includes(genre));
+      this.getMovies(this.filteredData);
     },
     sortByRelease() {
       this.sortActive = !this.sortActive;
       this.sortMovies();
+      this.getMovies(this.filteredData);
     },
     sortMovies() {
       if (this.sortActive) {
         // @ts-ignore
-        this.localMovies = this.localMovies.sort((a, b) => parseInt(a.release_date) - parseInt(b.release_date));
+        this.filteredData = this.filteredData.sort((a, b) => parseInt(a.release_date) - parseInt(b.release_date));
       } else {
         // @ts-ignore
-        this.localMovies = this.localMovies.sort((a, b) => parseInt(b.release_date) - parseInt(a.release_date));
+        this.filteredData = this.filteredData.sort((a, b) => parseInt(b.release_date) - parseInt(a.release_date));
       }
     }
   },
-  computed: {
-    genres() {
-      // @ts-ignore
-      return this.movies.map((item) => item.genres)
-        .flat()
-        .filter((item, index, arr) => arr.indexOf(item) === index);
-    }
+  async mounted() {
+    await this.loadMovies();
+    this.localData = this.moviesData;
+    // @ts-ignore
+    this.genres = this.localData.map((item) => item.genres).flat().filter((item, index, arr) => arr.indexOf(item) === index)
+    this.showAll();
   }
 });
 
@@ -154,6 +161,7 @@ export default Sort;
 
   .genres-wrapper {
     display: flex;
+    width: 780px;
 
     p {
       position: relative;
@@ -162,7 +170,7 @@ export default Sort;
       padding-bottom: 21px;
 
       &:not(:first-of-type) {
-        margin-left: 31px;
+        margin-left: 17px;
       }
 
       &:after {

@@ -29,9 +29,9 @@
     "budget": 0,
     "revenue": 0,
     "genres": [
-      "Science Fiction",
       "Action",
-      "Adventure"
+      "Adventure",
+      "Science Fiction"
     ],
     "runtime": null
   },
