@@ -92,13 +92,19 @@ const Sort = defineComponent({
           }
         ];
       }
+    },
+    emptyArray: {
+      type: Array,
+      default: () => {
+        return [];
+      }
     }
   },
   data() {
     return {
-      genres: [],
-      localData: this.moviesData,
-      filteredData: this.moviesData,
+      genres: this.emptyArray,
+      localData: this.emptyArray,
+      filteredData: this.emptyArray,
       activeGenre: "all",
       sortActive: false,
       img1,

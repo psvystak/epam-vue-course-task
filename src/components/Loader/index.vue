@@ -8,15 +8,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "Loader"
 }
 </script>
 
 <style scoped lang="scss">
-@import "../../assets/scss/variables";
 
+@import "../../assets/scss/variables";
 @keyframes ldio-9fxjxwzfr2s {
   0% {
     transform: translate(-50%, -50%) rotate(0deg);

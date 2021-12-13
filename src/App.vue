@@ -2,8 +2,11 @@
   <div class="main-wrapper">
     <search class="search-component"></search>
     <div class="movies-wrapper">
-      <sort :movies-data="movies" class="sort-component" />
-      <movie-item v-for="movie in movies" :movie="movie" class="movie-item-component" />
+      <loader v-if="loading"></loader>
+      <template v-else>
+        <sort :movies-data="movies" class="sort-component" />
+        <movie-item v-for="movie in movies" :movie="movie" class="movie-item-component" />
+      </template>
     </div>
   </div>
 </template>
@@ -11,17 +14,21 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import { mapGetters, mapActions } from "vuex";
+import Loader from "./components/Loader/index.vue";
 import MovieItem from "./components/MovieItem/index.vue";
 import Search from "./components/Search/index.vue";
 import Sort from "./components/Sort/index.vue";
 
 @Options({
   components: {
+    Loader,
     MovieItem,
     Search,
     Sort
   },
-  computed: mapGetters(["movies"]),
+  computed: {
+    ...mapGetters(["movies", "loading"])
+  },
   methods: {
     ...mapActions(["loadMovies"])
   },
@@ -47,6 +54,7 @@ export default class App extends Vue {
 }
 
 .movies-wrapper {
+  position: relative;
   background: $black;
   padding: 13px 0 50px 59px;
   display: flex;
