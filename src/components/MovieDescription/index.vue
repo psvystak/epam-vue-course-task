@@ -1,58 +1,63 @@
 <template>
-  <div class="movie-item-large flex">
-    <div class="img-wrapper">
-      <img :alt="movie.title" :src="movie.poster_path" />
+  <div class="movie-item-large">
+    <div class="header-wrapper flex">
+      <router-link class="logo" to="/">
+        <p>netflixroulette</p>
+      </router-link>
+      <router-link class="search" to="/">
+        <img :src="searchIcon" alt="Search icon">
+      </router-link>
     </div>
-    <div class="description-wrapper">
-      <div>
-        <p class="name">{{ movie.title }}</p>
-        <p class="rating">{{ movie.vote_count }}</p>
+    <div class="content-wrapper flex">
+      <div class="img-wrapper">
+        <img :alt="movie.title" :src="movie.poster_path" />
       </div>
-      <p class="genre">{{ computeGenres }}</p>
-      <div class="flex">
-        <p class="year style-font">{{ returnYear }}</p>
-        <p class="duration style-font">2h 34min</p>
+      <div class="description-wrapper">
+        <div>
+          <p class="name">{{ movie.title }}</p>
+          <p class="rating">{{ movie.vote_count }}</p>
+        </div>
+        <p class="genre">{{ computeGenres }}</p>
+        <div class="flex">
+          <p class="year style-font">{{ returnYear }}</p>
+          <p class="duration style-font">2h 34min</p>
+        </div>
+        <p class="description">{{ movie.overview }}</p>
       </div>
-      <p class="description">{{ movie.overview }}</p>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import img from "./assets/img2.jpg";
+import searchIcon from "./assets/search.svg";
+import { mapGetters } from "vuex";
 
 const MovieDescription = defineComponent({
   props: {
-    movie: {
-      type: Object,
-      default: () => {
-        return {
-          id: 1,
-          poster_path: img,
-          title: "Pulp Fiction",
-          genres: [
-            "Action",
-            "Adventure"
-          ],
-          release_date: "2020-12-12",
-          vote_count: 8.9,
-          overview: "Jules Winnfield (Samuel L. Jackson) and Vincent Vega (John Travolta) are two hit men who are out to retrieve a suitcase stolen from their employer, mob boss Marsellus Wallace (Ving Rhames). Wallace has also asked Vincent to take his wife Mia (Uma Thurman) out a few days later when Wallace himself will be out of town. Butch Coolidge (Bruce Willis) is an aging boxer who is paid by Wallace to lose his fight. The lives of these seemingly unrelated people are woven together comprising of a series of funny, bizarre and uncalled-for incidents.—Soumitra"
-        };
-      }
+    id: {
+      type: String,
+      default: () => "447365"
     }
   },
   data() {
     return {
-      img
+      searchIcon
     };
   },
   computed: {
-    returnYear() {
+    ...mapGetters(["movies"]),
+    movie(): object {
+      // @ts-ignore
+      return this.movies.find((item) => item.id === +this.id);
+    },
+    returnYear(): number {
+      // @ts-ignore
       return parseInt(this.movie.release_date);
     },
     computeGenres(): string {
-      return this.movie!.genres.join(" & ");
+      // @ts-ignore
+      return this.movie.genres.join(" & ");
     }
   }
 });
@@ -63,17 +68,32 @@ export default MovieDescription;
 <style lang="scss" scoped>
 @import "../../assets/scss/variables";
 
+.header-wrapper {
+
+}
+
 .flex {
   display: flex;
   position: relative;
+}
+
+.logo {
+  color: $red;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 20px;
 }
 
 .movie-item-large {
   width: 1200px;
   font-weight: 500;
   background: #232323;
-  justify-content: space-between;
-  padding: 86px 60px 29px 60px;
+  padding: 31px 60px 29px 60px;
+
+  .header-wrapper {
+    width: 100%;
+    justify-content: space-between;
+  }
 
   .img-wrapper {
     width: 320px;
@@ -85,6 +105,11 @@ export default MovieDescription;
       height: 100%;
       object-fit: cover;
     }
+  }
+
+  .content-wrapper {
+    margin-top: 17px;
+    justify-content: space-between;
   }
 
   .description-wrapper {
@@ -100,12 +125,15 @@ export default MovieDescription;
       margin-top: 22px;
       width: 216px;
       justify-content: space-between;
+
       .year {
 
       }
+
       .duration {
 
       }
+
       .style-font {
         color: $red;
         font-size: 23px;
@@ -119,7 +147,9 @@ export default MovieDescription;
       &.name {
         text-transform: uppercase;
         font-size: 41px;
+        line-height: 40px;
         font-weight: 300;
+        max-width: 470px;
       }
 
       &.genre {
@@ -130,8 +160,7 @@ export default MovieDescription;
 
       &.rating {
         position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
+        top: -10px;
         left: 107.7%;
         border: 2px solid #979797;
         width: 62px;
@@ -146,6 +175,7 @@ export default MovieDescription;
         font-weight: 300;
       }
     }
+
     .description {
       opacity: 0.5;
       font-size: 20px;

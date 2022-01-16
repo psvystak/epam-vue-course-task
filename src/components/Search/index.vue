@@ -16,7 +16,7 @@ const Search = defineComponent({
   data() {
     return {
       searchData: "",
-      localMovies: this.movies
+      localMovies: []
     };
   },
   computed: {
@@ -29,7 +29,9 @@ const Search = defineComponent({
       if (this.searchData.length) {
         // @ts-ignore
         this.getMovies(this.localMovies.filter((item)=>item.title.toLowerCase().includes(this.searchData.toLowerCase())));
-        this.searchData = "";
+      }
+      else {
+        this.getMovies(this.localMovies);
       }
     }
   },

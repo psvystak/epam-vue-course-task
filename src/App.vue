@@ -1,11 +1,14 @@
 <template>
   <div class="main-wrapper">
-    <search class="search-component"></search>
+    <router-view />
     <div class="movies-wrapper">
       <loader v-if="loading"></loader>
       <template v-else>
         <sort :movies-data="movies" class="sort-component" />
-        <movie-item v-for="movie in movies" :movie="movie" class="movie-item-component" />
+        <router-link v-for="movie in movies" :to="{ name: 'Descr', query: { id: movie.id }}" class="movie-item-component"
+                     @click.native="scrollToTop">
+          <movie-item :movie="movie" />
+        </router-link>
       </template>
     </div>
   </div>
@@ -30,7 +33,13 @@ import Sort from "./components/Sort/index.vue";
     ...mapGetters(["movies", "loading"])
   },
   methods: {
-    ...mapActions(["loadMovies"])
+    ...mapActions(["loadMovies"]),
+    scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    }
   },
   async mounted() {
     await this.loadMovies();
@@ -56,7 +65,8 @@ export default class App extends Vue {
 .movies-wrapper {
   position: relative;
   background: $black;
-  padding: 13px 0 50px 59px;
+  padding: 16px 0 50px 59px;
+  margin-top: 11px;
   display: flex;
   flex-wrap: wrap;
 

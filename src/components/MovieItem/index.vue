@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-item" @click="openFullPage('test')">
+  <div class="movie-item">
     <div class="img-wrapper">
       <img :alt="movie.title" :src="movie.poster_path" />
     </div>
@@ -40,21 +40,6 @@ const MovieItem = defineComponent({
     return {
       img,
     }
-  },
-  emits: {
-    openFullPageEmit(payload: { bookName: string }) {
-      console.log(payload.bookName);
-    },
-  },
-  methods: {
-    openFullPage(test: string) {
-      this.$emit("openFullPageEmit", {
-        bookName: test,
-      });
-    },
-  },
-  mounted() {
-
   },
   computed: {
     returnYear() {
