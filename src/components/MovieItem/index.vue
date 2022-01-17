@@ -46,7 +46,7 @@ const MovieItem = defineComponent({
       return parseInt(this.movie.release_date);
     },
     computeGenres(): string {
-      return this.movie!.genres.join(' & ');
+      return this.movie.genres.join(' & ');
     },
   },
 });

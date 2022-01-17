@@ -3,13 +3,15 @@
     <loader v-if="getLoading"></loader>
     <router-view v-else />
     <div class="movies-wrapper">
-      <sort :movies-data="movies" class="sort-component" />
-      <router-link v-for="movie in movies" :to="{ name: 'Descr', query: { id: movie.id }}"
-                   class="movie-item-component"
-                   @click.native="scrollToTop">
-        <details-dropdown class="details-dropdown"></details-dropdown>
-        <movie-item :movie="movie" />
-      </router-link>
+      <template v-if="movies.length">
+        <sort :movies-data="movies" class="sort-component" />
+        <router-link v-for="movie in movies" :to="{ name: 'Descr', query: { id: movie.id }}"
+                     class="movie-item-component"
+                     @click.native="scrollToTop">
+          <details-dropdown class="details-dropdown"></details-dropdown>
+          <movie-item :movie="movie" />
+        </router-link>
+      </template>
     </div>
   </div>
 </template>
@@ -44,9 +46,7 @@ import DetailsDropdown from "./components/DetailsDropdown/index.vue";
     }
   },
   async mounted() {
-    console.log(this.getLoading);
     await this.loadMovies();
-    console.log(this.getLoading);
   }
 })
 export default class App extends Vue {

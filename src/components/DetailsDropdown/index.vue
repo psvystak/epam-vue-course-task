@@ -1,10 +1,10 @@
 <template>
   <div class="drop-down-main-wrapper flex">
-    <img :src="img" class="open-button" alt="Dropdown image with 3 dots" @click.prevent="open" />
+    <img :src="img" class="open-button" alt="Dropdown image with 3 dots" @click.prevent.stop="open" />
     <div class="dropdown-wrapper" v-if="opened" v-click-outside="hide">
-      <p @click.prevent="editMovie(id)">Edit</p>
-      <p @click.prevent="deleteMovie(id)">Delete</p>
-      <div class="close-button" @click.prevent="hide">
+      <p @click.prevent.stop="editMovie(id)">Edit</p>
+      <p @click.prevent.stop="deleteMovie(id)">Delete</p>
+      <div class="close-button" @click.prevent.stop="hide">
         <img :src="close" alt="Close button cross" />
       </div>
     </div>

@@ -10,13 +10,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { mapActions, mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 const Search = defineComponent({
   data() {
     return {
-      searchData: "",
-      localMovies: []
+      searchData: ""
     };
   },
   computed: {
@@ -24,21 +23,16 @@ const Search = defineComponent({
   },
   methods: {
     ...mapMutations(["getMovies"]),
-    ...mapActions(["loadMovies"]),
     searchMovie() {
       if (this.searchData.length) {
         // @ts-ignore
-        this.getMovies(this.localMovies.filter((item)=>item.title.toLowerCase().includes(this.searchData.toLowerCase())));
+        this.getMovies(this.movies.filter((item)=>item.title.toLowerCase().includes(this.searchData.toLowerCase())));
       }
       else {
-        this.getMovies(this.localMovies);
+        this.getMovies(this.movies);
       }
     }
   },
-  async mounted() {
-    await this.loadMovies();
-    this.localMovies = this.movies;
-  }
 });
 
 export default Search;

@@ -16,7 +16,7 @@
 import { defineComponent } from "vue";
 import img1 from "./assets/img2.jpg";
 import img2 from "./assets/img3.jpg";
-import { mapMutations, mapActions } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 const Sort = defineComponent({
   props: {
@@ -112,7 +112,6 @@ const Sort = defineComponent({
     };
   },
   methods: {
-    ...mapActions(["loadMovies"]),
     ...mapMutations(["getMovies"]),
     showAll() {
       this.filteredData = this.localData;
@@ -142,11 +141,13 @@ const Sort = defineComponent({
       }
     }
   },
-  async mounted() {
-    await this.loadMovies();
+  computed: {
+    ...mapGetters(["movies"])
+  },
+  mounted() {
     this.localData = this.moviesData;
     // @ts-ignore
-    this.genres = this.localData.map((item) => item.genres).flat().filter((item, index, arr) => arr.indexOf(item) === index)
+    this.genres = this.localData.map((item) => item.genres).flat().filter((item, index, arr) => arr.indexOf(item) === index);
     this.showAll();
   }
 });
