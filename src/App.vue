@@ -67,7 +67,10 @@ export default class App extends Vue {
 }
 
 .details-dropdown {
-  position: absolute;
+  position: absolute !important;
+  top: 11px;
+  right: 16px;
+  opacity: 0;
 }
 
 .movies-wrapper {
@@ -84,6 +87,7 @@ export default class App extends Vue {
 
   .movie-item-component {
     margin: 43px 57px 0 0;
+    position: relative;
 
     &:hover .details-dropdown {
       opacity: 1;
