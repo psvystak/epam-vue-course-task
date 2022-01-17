@@ -2,7 +2,8 @@
   <div class="search-wrapper">
     <label for="search">FIND YOUR MOVIE</label>
     <div class="search-inputs">
-      <input type="text" @keyup.enter="searchMovie" v-model="searchData" id="search" placeholder="What do you want to watch?" />
+      <input id="search" v-model="searchDataLocal" placeholder="What do you want to watch?" type="text"
+             @keyup.enter="searchMovie" />
       <button @click="searchMovie">SEARCH</button>
     </div>
   </div>
@@ -15,24 +16,27 @@ import { mapGetters, mapMutations } from "vuex";
 const Search = defineComponent({
   data() {
     return {
-      searchData: ""
+      searchDataLocal: ""
     };
   },
   computed: {
     ...mapGetters(["movies"])
   },
   methods: {
-    ...mapMutations(["getMovies"]),
+    ...mapMutations(["setMovies", "enableSearchQuery", "setSearchData"]),
     searchMovie() {
-      if (this.searchData.length) {
+      this.setSearchData(this.searchDataLocal);
+      if (this.searchDataLocal.length) {
         // @ts-ignore
-        this.getMovies(this.movies.filter((item)=>item.title.toLowerCase().includes(this.searchData.toLowerCase())));
-      }
-      else {
-        this.getMovies(this.movies);
+        this.setMovies(this.movies.filter((item) => item.title.toLowerCase().includes(this.searchDataLocal.toLowerCase())));
+        if (!this.movies.length) {
+          this.enableSearchQuery();
+        }
+      } else {
+        this.setMovies(this.movies);
       }
     }
-  },
+  }
 });
 
 export default Search;
@@ -44,7 +48,7 @@ export default Search;
 .search-wrapper {
   background: url("assets/search-bg.jpg") no-repeat center/contain;
   width: 1200px;
-  height: 410px;
+  height: 396px;
   font-weight: 500;
   padding: 110px 120px 0 123px;
 

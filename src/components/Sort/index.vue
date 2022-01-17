@@ -112,24 +112,24 @@ const Sort = defineComponent({
     };
   },
   methods: {
-    ...mapMutations(["getMovies"]),
+    ...mapMutations(["setMovies", "disableSearchQuery"]),
     showAll() {
       this.filteredData = this.localData;
       this.activeGenre = "all";
       this.sortMovies();
-      this.getMovies(this.filteredData);
+      this.setMovies(this.filteredData);
     },
     sortByGenre(genre: string) {
       this.activeGenre = genre;
       this.sortMovies();
       // @ts-ignore
       this.filteredData = this.localData.filter((item) => item.genres.includes(genre));
-      this.getMovies(this.filteredData);
+      this.setMovies(this.filteredData);
     },
     sortByRelease() {
       this.sortActive = !this.sortActive;
       this.sortMovies();
-      this.getMovies(this.filteredData);
+      this.setMovies(this.filteredData);
     },
     sortMovies() {
       if (this.sortActive) {
@@ -142,7 +142,7 @@ const Sort = defineComponent({
     }
   },
   computed: {
-    ...mapGetters(["movies"])
+    ...mapGetters(["movies", "searchQuery"])
   },
   mounted() {
     this.localData = this.moviesData;

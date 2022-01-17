@@ -1,17 +1,21 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
-import moviesData from "./movies.json";
+import axios from "axios";
 import { Module } from "vuex";
 
 const moviesModule: Module<any, any> = {
   state: {
     movies: [],
-    loading: true
+    loading: true,
+    searchQuery: false,
+    searchData: ""
   },
   actions: {
     async loadMovies({ commit }) {
       try {
-        commit("getMovies", moviesData);
+        const res = await axios.get("https://api.npoint.io/4789acb5721401bcdfad");
+        const moviesData = await res.data;
+        commit("setMovies", moviesData);
       } catch (error) {
         console.log(error);
       }
@@ -21,20 +25,35 @@ const moviesModule: Module<any, any> = {
     movies: state => {
       return state.movies;
     },
-    getLoading: state => {
+    searchQuery: state => {
+      return state.searchQuery;
+    },
+    loading: state => {
       return state.loading;
+    },
+    searchData: state => {
+      return state.searchData;
     }
   },
   mutations: {
-    loading(state) {
+    isLoading(state) {
       state.loading = true;
     },
-    loaded(state) {
+    isLoaded(state) {
       state.loading = false;
     },
-    getMovies(state, movies) {
-      state.movies = movies;
+    enableSearchQuery(state) {
+      state.searchQuery = true;
     },
+    disableSearchQuery(state) {
+      state.searchQuery = false;
+    },
+    setSearchData(state, data) {
+      state.searchData = data;
+    },
+    setMovies(state, movies) {
+      state.movies = movies;
+    }
   }
 };
 

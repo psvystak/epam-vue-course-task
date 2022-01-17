@@ -68,6 +68,7 @@ export default DetailsDropdown;
     width: 42px;
     height: 42px;
     margin-right: -4px;
+    opacity: 0;
   }
 
   .dropdown-wrapper {

@@ -23,13 +23,13 @@ const router = createRouter({
 });
 
 router.beforeEach((to: any, from: any, next: any) => {
-  store.commit("loading")
+  store.commit("isLoading")
   next()
 });
 
 router.afterEach((to: any, from: any, next: any) => {
   setTimeout(function(){
-    store.commit("loaded")
+    store.commit("isLoaded")
     },200)
 });
 

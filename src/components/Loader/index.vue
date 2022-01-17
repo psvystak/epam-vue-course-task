@@ -1,11 +1,9 @@
 <template>
-  <div>
     <div class="loadingio-spinner-rolling-cartjbdsc7q">
       <div class="ldio-9fxjxwzfr2s">
         <div></div>
       </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
@@ -43,8 +41,6 @@ export default {
 
 .loadingio-spinner-rolling-cartjbdsc7q {
   position: relative;
-  left: 50%;
-  transform: translateX(-50%);
   width: 200px;
   height: 200px;
   display: inline-block;
@@ -52,10 +48,12 @@ export default {
 }
 
 .ldio-9fxjxwzfr2s {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  transform: translateZ(0) scale(1);
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%) translateZ(0) scale(1);
   backface-visibility: hidden;
   transform-origin: 0 0; /* see note above */
 }
