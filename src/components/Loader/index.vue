@@ -42,10 +42,9 @@ export default {
 }
 
 .loadingio-spinner-rolling-cartjbdsc7q {
-  position: absolute;
-  top: 50%;
+  position: relative;
   left: 50%;
-  transform: translateY(-50%) translateX(-50%);
+  transform: translateX(-50%);
   width: 200px;
   height: 200px;
   display: inline-block;

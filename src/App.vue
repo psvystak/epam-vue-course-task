@@ -1,15 +1,15 @@
 <template>
   <div class="main-wrapper">
-    <router-view />
+    <loader v-if="getLoading"></loader>
+    <router-view v-else />
     <div class="movies-wrapper">
-      <loader v-if="loading"></loader>
-      <template v-else>
-        <sort :movies-data="movies" class="sort-component" />
-        <router-link v-for="movie in movies" :to="{ name: 'Descr', query: { id: movie.id }}" class="movie-item-component"
-                     @click.native="scrollToTop">
-          <movie-item :movie="movie" />
-        </router-link>
-      </template>
+      <sort :movies-data="movies" class="sort-component" />
+      <router-link v-for="movie in movies" :to="{ name: 'Descr', query: { id: movie.id }}"
+                   class="movie-item-component"
+                   @click.native="scrollToTop">
+        <details-dropdown class="details-dropdown"></details-dropdown>
+        <movie-item :movie="movie" />
+      </router-link>
     </div>
   </div>
 </template>
@@ -21,16 +21,18 @@ import Loader from "./components/Loader/index.vue";
 import MovieItem from "./components/MovieItem/index.vue";
 import Search from "./components/Search/index.vue";
 import Sort from "./components/Sort/index.vue";
+import DetailsDropdown from "./components/DetailsDropdown/index.vue";
 
 @Options({
   components: {
     Loader,
     MovieItem,
     Search,
-    Sort
+    Sort,
+    DetailsDropdown
   },
   computed: {
-    ...mapGetters(["movies", "loading"])
+    ...mapGetters(["movies", "getLoading"])
   },
   methods: {
     ...mapActions(["loadMovies"]),
@@ -42,7 +44,9 @@ import Sort from "./components/Sort/index.vue";
     }
   },
   async mounted() {
+    console.log(this.getLoading);
     await this.loadMovies();
+    console.log(this.getLoading);
   }
 })
 export default class App extends Vue {
@@ -62,6 +66,10 @@ export default class App extends Vue {
   margin: auto;
 }
 
+.details-dropdown {
+  position: absolute;
+}
+
 .movies-wrapper {
   position: relative;
   background: $black;
@@ -76,6 +84,10 @@ export default class App extends Vue {
 
   .movie-item-component {
     margin: 43px 57px 0 0;
+
+    &:hover .details-dropdown {
+      opacity: 1;
+    }
   }
 }
 

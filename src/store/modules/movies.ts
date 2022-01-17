@@ -11,9 +11,7 @@ const moviesModule: Module<any, any> = {
   actions: {
     async loadMovies({ commit }) {
       try {
-        commit("loading");
         commit("getMovies", moviesData);
-        commit("loaded");
       } catch (error) {
         console.log(error);
       }
@@ -23,7 +21,7 @@ const moviesModule: Module<any, any> = {
     movies: state => {
       return state.movies;
     },
-    loading: state => {
+    getLoading: state => {
       return state.loading;
     }
   },
