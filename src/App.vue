@@ -20,6 +20,15 @@
       </template>
       <loader v-else></loader>
     </div>
+    <movie-popup></movie-popup>
+    <transition name="fade">
+      <div v-if="moviePopup" class="popup-backdrop"></div>
+    </transition>
+    <div class="footer">
+      <router-link class="logo" to="/">
+        <p><b>netflix</b>roulette</p>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -31,6 +40,7 @@ import MovieItem from "./components/MovieItem/index.vue";
 import Search from "./components/Search/index.vue";
 import Sort from "./components/Sort/index.vue";
 import DetailsDropdown from "./components/DetailsDropdown/index.vue";
+import MoviePopup from "./components/MoviePopup/index.vue";
 
 @Options({
   data() {
@@ -43,10 +53,11 @@ import DetailsDropdown from "./components/DetailsDropdown/index.vue";
     MovieItem,
     Search,
     Sort,
-    DetailsDropdown
+    DetailsDropdown,
+    MoviePopup
   },
   computed: {
-    ...mapGetters(["movies", "loading", "searchQuery", "searchData"])
+    ...mapGetters(["movies", "loading", "searchQuery", "searchData", "moviePopup"])
   },
   methods: {
     ...mapActions(["loadMovies"]),
@@ -88,6 +99,7 @@ export default class App extends Vue {
 }
 
 #app > .main-wrapper {
+  position: relative;
   width: 1200px;
   margin: auto;
 }
@@ -97,6 +109,7 @@ export default class App extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   * {
     color: white;
   }
@@ -145,5 +158,22 @@ export default class App extends Vue {
 
 .search-component {
   border-bottom: 10px solid $gray-3;
+}
+
+.footer {
+  background-color: $dark-gray;
+  padding: 20px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.popup-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% - 70.39px);
+  background: $black-opacity;
+  backdrop-filter: blur(2px);
 }
 </style>

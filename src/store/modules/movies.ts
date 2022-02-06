@@ -8,7 +8,9 @@ const moviesModule: Module<any, any> = {
     movies: [],
     loading: true,
     searchQuery: false,
-    searchData: ""
+    searchData: "",
+    moviePopup: false,
+    editMode: false
   },
   actions: {
     async loadMovies({ commit }) {
@@ -33,6 +35,12 @@ const moviesModule: Module<any, any> = {
     },
     searchData: state => {
       return state.searchData;
+    },
+    moviePopup: state => {
+      return state.moviePopup;
+    },
+    editMode: state => {
+      return state.editMode;
     }
   },
   mutations: {
@@ -53,7 +61,19 @@ const moviesModule: Module<any, any> = {
     },
     setMovies(state, movies) {
       state.movies = movies;
-    }
+    },
+    openPopup(state) {
+      state.moviePopup = true;
+    },
+    closePopup(state) {
+      state.moviePopup = false;
+    },
+    setEditMode(state) {
+      state.editMode = true;
+    },
+    setAddMode(state) {
+      state.editMode = false;
+    },
   }
 };
 

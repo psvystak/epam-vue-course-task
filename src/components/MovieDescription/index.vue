@@ -19,7 +19,7 @@
       <p class="genre">{{ computeGenres }}</p>
       <div class="flex">
         <p class="year style-font">{{ returnYear }}</p>
-        <p class="duration style-font">2h 34min</p>
+        <p class="duration style-font">{{ movie.runtime || "2h 34min" }}</p>
       </div>
       <p class="description">{{ movie.overview }}</p>
     </div>
@@ -48,7 +48,6 @@ const MovieDescription = defineComponent({
   computed: {
     ...mapGetters(["movies"]),
     movie(): object {
-      console.log(this.movies);
       // @ts-ignore
       return this.movies.find((item) => item.id === +this.$route.query.id);
     },
@@ -79,13 +78,6 @@ export default MovieDescription;
 .flex {
   display: flex;
   position: relative;
-}
-
-.logo {
-  color: $red;
-  text-decoration: none;
-  font-weight: 300;
-  font-size: 20px;
 }
 
 .header-wrapper {

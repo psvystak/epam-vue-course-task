@@ -1,5 +1,24 @@
 @import "variables";
+
 body {
   background: $gray-3;
   font-family: "Montserrat";
+}
+
+.logo {
+  color: $red;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s linear;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

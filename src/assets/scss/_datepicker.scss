@@ -1,0 +1,59 @@
+$dp__font_family: "Montserrat" !default; // Font size for the menu
+
+@import "node_modules/vue3-date-time-picker/src/Vue3DatePicker/style/main";
+
+.dp__theme_dark {
+  --dp-background-color: #323232;
+  --dp-text-color: #fff;
+  --dp-hover-color: #484848;
+  --dp-hover-text-color: #fff;
+  --dp-hover-icon-color: #959595;
+  --dp-primary-color: #F65261;
+  --dp-primary-disabled-color: #61a8ea;
+  --dp-primary-text-color: #fff;
+  --dp-secondary-color: #fff;
+  --dp-border-color: #2d2d2d;
+  --dp-menu-border-color: #2d2d2d;
+  --dp-border-color-hover: #F65261;
+  --dp-disabled-color: #737373;
+  --dp-disabled-color-text: #828282;
+  --dp-scroll-bar-background: #212121;
+  --dp-scroll-bar-color: #484848;
+  --dp-success-color: #F65261;
+  --dp-success-color-disabled: #428f59;
+  --dp-icon-color: #959595;
+  --dp-danger-color: #e53935;
+  --dp-marker-color: #e53935;
+  --dp-tooltip-color: #3e3e3e;
+}
+
+.dp {
+  &__clear_icon {
+    top: 2px;
+    transform: none;
+    width: 61px;
+    height: 100%;
+    padding-right: 17px;
+    box-sizing: border-box;
+  }
+
+  &__input {
+    font-size: 20px;
+    padding-left: 20px;
+    height: 57px;
+    margin-top: 4px;
+
+    &::placeholder {
+      opacity: 1;
+    }
+
+    &_icon {
+      pointer-events: none;
+      display: block;
+      left: auto;
+      right: 21px;
+      top: 23px;
+      transform: none;
+    }
+  }
+}
