@@ -111,6 +111,19 @@ const Sort = defineComponent({
       img2
     };
   },
+  computed: {
+    ...mapGetters(["movies", "searchQuery"])
+  },
+  watch: {
+    moviesData: {
+      deep: true,
+      handler() {
+        // @ts-ignore
+        this.genres = this.localData.map((movie) => movie.genres).flat().filter((genre, index, genres) => genres.indexOf(genre) === index);
+        this.sortMovies();
+      }
+    }
+  },
   methods: {
     ...mapMutations(["setMovies", "disableSearchQuery"]),
     showAll() {
@@ -141,13 +154,10 @@ const Sort = defineComponent({
       }
     }
   },
-  computed: {
-    ...mapGetters(["movies", "searchQuery"])
-  },
   mounted() {
     this.localData = this.moviesData;
     // @ts-ignore
-    this.genres = this.localData.map((item) => item.genres).flat().filter((item, index, arr) => arr.indexOf(item) === index);
+    this.genres = this.localData.map((movie) => movie.genres).flat().filter((genre, index, genres) => genres.indexOf(genre) === index);
     this.showAll();
   }
 });
@@ -159,7 +169,7 @@ export default Sort;
 @import "src/assets/scss/variables";
 
 .main-wrapper {
-  padding: 5px 3px 0 0;
+  padding-bottom: 3px;
   display: flex;
   justify-content: space-between;
   width: 1084px;
@@ -169,15 +179,17 @@ export default Sort;
   .genres-wrapper {
     display: flex;
     width: 780px;
+    flex-wrap: wrap;
 
     p {
       position: relative;
       cursor: pointer;
       user-select: none;
       padding-bottom: 21px;
+      padding-top: 5px;
 
-      &:not(:first-of-type) {
-        margin-left: 17px;
+      &:not(:last-of-type) {
+        margin-right: 17px;
       }
 
       &:after {
@@ -185,7 +197,7 @@ export default Sort;
         display: block;
         position: absolute;
         left: 0;
-        bottom: -2px;
+        bottom: -5px;
         width: 100%;
         height: 3px;
         background: #F65261;
@@ -211,6 +223,7 @@ export default Sort;
     display: flex;
     justify-content: space-between;
     width: 265px;
+    padding-top: 5px;
 
     p {
       letter-spacing: 0.8px;

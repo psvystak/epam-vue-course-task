@@ -10,7 +10,11 @@ const moviesModule: Module<any, any> = {
     searchQuery: false,
     searchData: "",
     moviePopup: false,
-    editMode: false
+    editId: 0,
+    currentMovie: {},
+    editMode: false,
+    deleteMode: false,
+    cachedGenres: []
   },
   actions: {
     async loadMovies({ commit }) {
@@ -27,6 +31,12 @@ const moviesModule: Module<any, any> = {
     movies: state => {
       return state.movies;
     },
+    cachedGenres: state => {
+      return state.cachedGenres;
+    },
+    editId: state => {
+      return state.editId;
+    },
     searchQuery: state => {
       return state.searchQuery;
     },
@@ -41,6 +51,12 @@ const moviesModule: Module<any, any> = {
     },
     editMode: state => {
       return state.editMode;
+    },
+    deleteMode: state => {
+      return state.deleteMode;
+    },
+    currentMovie: state => {
+      return state.currentMovie;
     }
   },
   mutations: {
@@ -59,17 +75,27 @@ const moviesModule: Module<any, any> = {
     setSearchData(state, data) {
       state.searchData = data;
     },
+    setCachedGenres(state, data) {
+      state.cachedGenres = data;
+    },
     setMovies(state, movies) {
       state.movies = movies;
     },
-    openPopup(state) {
+    setEditId(state, id) {
+      state.editId = id;
+    },
+    openPopup(state, currentMovie) {
       state.moviePopup = true;
+      state.currentMovie = currentMovie;
     },
     closePopup(state) {
       state.moviePopup = false;
     },
     setEditMode(state) {
       state.editMode = true;
+    },
+    setDeleteMode(state) {
+      state.deleteMode = true;
     },
     setAddMode(state) {
       state.editMode = false;

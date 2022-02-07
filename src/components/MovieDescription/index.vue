@@ -60,9 +60,6 @@ const MovieDescription = defineComponent({
       return this.movie.genres.join(" & ");
     }
   },
-  mounted() {
-    console.log();
-  }
 });
 
 export default MovieDescription;

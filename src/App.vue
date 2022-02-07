@@ -14,13 +14,13 @@
         <router-link v-for="movie in movies" :to="{ name: 'Descr', query: { id: movie.id }}"
                      class="movie-item-component"
                      @click.native="scrollToTop">
-          <details-dropdown class="details-dropdown"></details-dropdown>
+          <details-dropdown :id="movie.id" class="details-dropdown"></details-dropdown>
           <movie-item :movie="movie" />
         </router-link>
       </template>
       <loader v-else></loader>
     </div>
-    <movie-popup></movie-popup>
+    <movie-popup v-if="moviePopup"></movie-popup>
     <transition name="fade">
       <div v-if="moviePopup" class="popup-backdrop"></div>
     </transition>

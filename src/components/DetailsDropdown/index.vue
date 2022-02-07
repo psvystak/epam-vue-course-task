@@ -17,6 +17,7 @@ import img from "./assets/dropdown-button.svg";
 import close from "./assets/close.svg";
 // @ts-ignore
 import vClickOutside from "click-outside-vue3";
+import { mapGetters, mapMutations } from "vuex";
 
 const DetailsDropdown = defineComponent({
   props: {
@@ -25,7 +26,11 @@ const DetailsDropdown = defineComponent({
       default: 1
     }
   },
+  computed: {
+    ...mapGetters(["editId", "movies"]),
+  },
   methods: {
+    ...mapMutations(["setEditId", "setEditMode", "setDeleteMode", "openPopup"]),
     open() {
       this.opened = true;
     },
@@ -33,10 +38,20 @@ const DetailsDropdown = defineComponent({
       this.opened = false;
     },
     editMovie(id: number) {
-      console.log(`edited ${id} item`);
+      this.setEditId(id);
+      this.setEditMode();
+      // @ts-ignore
+      let currentMovie = this.movies.find((movie) => movie.id === this.editId);
+      // @ts-ignore
+      if (!currentMovie.runtime) {
+        currentMovie.runtime = "2h 34min";
+      }
+      this.openPopup(currentMovie);
     },
     deleteMovie(id: number) {
-      console.log(`deleted ${id} item`);
+      this.setEditId(id);
+      this.setDeleteMode();
+      this.openPopup();
     }
   },
   data() {

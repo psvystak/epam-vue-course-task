@@ -1,5 +1,5 @@
 <template>
-  <div class="add-button" @click="openPopup">
+  <div class="add-button" @click="openMoviePopup">
     + ADD MOVIE
   </div>
 </template>
