@@ -47,11 +47,19 @@ const DetailsDropdown = defineComponent({
         currentMovie.runtime = "2h 34min";
       }
       this.openPopup(currentMovie);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     },
     deleteMovie(id: number) {
       this.setEditId(id);
       this.setDeleteMode();
       this.openPopup();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
   },
   data() {
